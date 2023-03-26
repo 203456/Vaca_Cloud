@@ -5,12 +5,16 @@ import 'package:http/http.dart' as http;
 const String baseUrl = 'http://3.12.155.9/api/v1/animal/';
 
 class BaseClient {
+  final String Token;
+  BaseClient(this.Token);
   var client = http.Client();
   //GET
   Future<dynamic> get(String api) async {
     var url = Uri.parse(baseUrl + api);
 
-    var response = await client.get(url);
+    var response = await client.get(url, headers: {
+      'Authorization': 'Token $Token',
+    });
     print(response.statusCode);
     if (response.statusCode == 200) {
       return response.body;

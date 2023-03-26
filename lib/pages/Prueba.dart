@@ -12,7 +12,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'DetallesAnimal.dart';
 
 class Prueba extends StatefulWidget {
-  const Prueba({super.key});
+  final String token;
+  final int userId;
+  
+  const Prueba({Key? key, required this.token, required this.userId}) : super(key: key);
+  
   Future<http.Response> fetchAlbum() {
     return http.get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
   }
@@ -31,7 +35,7 @@ class _PruebaState extends State<Prueba> {
   }
 
   Future<void> fetchData() async {
-    var response = await BaseClient().get('').catchError((err) {});
+    var response = await BaseClient(widget.token).get('').catchError((err) {});
     if (response == null) return;
     debugPrint('successful:');
     var animals = animalFromJson(response);
@@ -53,7 +57,7 @@ class _PruebaState extends State<Prueba> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Prueba2()),
+              MaterialPageRoute(builder: (context) => Prueba2(token: widget.token,userId: widget.userId,)),
             );
           },
         ),

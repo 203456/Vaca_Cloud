@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Prueba2 extends StatefulWidget {
-  const Prueba2({super.key});
+  final String token;
+  final int userId;
+
+  const Prueba2({Key? key, required this.token, required this.userId})
+      : super(key: key);
 
   @override
   State<Prueba2> createState() => _Prueba2State();
@@ -95,6 +99,7 @@ class _Prueba2State extends State<Prueba2> {
   }
 
   void dioConnect(File images, data) async {
+    String token = widget.token;
     if (images == null) {
       print('No hay imagen');
       FormData formData = FormData.fromMap({
@@ -106,10 +111,12 @@ class _Prueba2State extends State<Prueba2> {
       });
 
       Dio dio = Dio();
-      final response = await dio.post(
-        "http://3.137.176.225/api/v1/animal/",
-        data: formData,
-      );
+
+      final response = await dio.post("http://3.12.155.9/api/v1/animal/",
+          data: formData,
+          options: Options(headers: {
+            'Authorization': 'Token $token',
+          }));
 
       print(response.data);
     } else {
@@ -124,10 +131,11 @@ class _Prueba2State extends State<Prueba2> {
         "photo": file
       });
       Dio dio = Dio();
-      final response = await dio.post(
-        "http://3.137.176.225/api/v1/animal/",
-        data: formData,
-      );
+      final response = await dio.post("http://3.12.155.9/api/v1/animal/",
+          data: formData,
+          options: Options(headers: {
+            'Authorization': 'Token $token',
+          }));
 
       print(response.data);
     }

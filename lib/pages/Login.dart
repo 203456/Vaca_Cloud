@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:vaca_cloud/pages/Principal.dart';
 import 'package:vaca_cloud/pages/Prueba.dart';
+import 'package:dio/dio.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -10,6 +13,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController _username = TextEditingController();
+  TextEditingController _password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,12 +47,13 @@ class _LoginState extends State<Login> {
                               style: TextStyle(
                                   fontSize: 17,
                                   color: Color.fromARGB(255, 0, 0, 0)),
-                              "Correo electronico"),
+                              "Username"),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 20),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
                           child: TextField(
-                            decoration: InputDecoration(
+                            controller: _username,
+                            decoration: const InputDecoration(
                               enabledBorder: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(15.0)),
@@ -59,7 +66,7 @@ class _LoginState extends State<Login> {
                                 borderSide: BorderSide(color: Colors.blue),
                               ),
                               prefix: Icon(Icons.email),
-                              hintText: 'Correo electronico',
+                              hintText: 'username',
                               hintStyle: TextStyle(
                                   color: Color.fromARGB(151, 156, 152, 152)),
                             ),
@@ -74,11 +81,12 @@ class _LoginState extends State<Login> {
                                   color: Color.fromARGB(255, 0, 0, 0)),
                               "Contraseña"),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 20),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
                           child: TextField(
+                            controller: _password,
                             obscureText: true,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               enabledBorder: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(15.0)),
@@ -105,10 +113,19 @@ class _LoginState extends State<Login> {
                               child: MaterialButton(
                                 color: Color.fromARGB(255, 104, 91, 227),
                                 onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => const Prueba()));
+                                  print(_password.text);
+                                  print(_username.text);
+                                  if (_password.text == '' &&
+                                      _username.text == '') {
+                                    _showAlertDialog("Acceso deGANADO",
+                                        "Por favor llene todo los campos");
+                                  } else {
+                                    var data = {
+                                      "username": _username.text,
+                                      "password": _password.text,
+                                    };
+                                    dioConnect(data);
+                                  }
                                 },
                                 shape: RoundedRectangleBorder(
                                     side: const BorderSide(
@@ -133,5 +150,56 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  void dioConnect(data) async {
+    FormData formData = FormData.fromMap({
+      "username": data["username"],
+      "password": data["password"],
+    });
+
+    Dio dio = Dio();
+    try {
+      final response = await dio.post(
+        "http://3.12.155.9/api/v1/login/",
+        data: formData,
+      );
+      print(response.data);
+      String Token = response.data["token"];
+      int userID = response.data["user_id"];
+      print(Token);
+
+      Navigator.push(
+          context, MaterialPageRoute(builder: (_) => Prueba(token: Token,userId: userID,)));
+    } catch (e) {
+      if (e is DioError) {
+        if (e.response?.statusCode == 400) {
+          _showAlertDialog("Acceso deGANADO", "Credenciales invalidas");
+          print("Bad request error: ${e.response!.data}");
+        }
+      }
+    }
+  }
+
+  void _showAlertDialog(String title, String content) {
+    showDialog(
+        context: context,
+        builder: (buildcontext) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(content),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text(
+                  "CERRAR",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 }
