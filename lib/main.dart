@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:vaca_cloud/pages/Login.dart';
 import 'package:vaca_cloud/pages/Prueba.dart';
-
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:vaca_cloud/pages/Prueba2.dart';
 
 void main() async {
+
+
   runApp(const MyApp());
 }
 
@@ -19,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Prueba(),
+      home: const Login(),
     );
   }
 }

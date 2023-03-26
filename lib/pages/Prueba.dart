@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:vaca_cloud/components/app_button.dart';
 import 'package:vaca_cloud/models/animal_models.dart';
@@ -5,6 +6,10 @@ import 'package:vaca_cloud/components/animal.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/container.dart';
+import 'package:vaca_cloud/pages/Prueba2.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'DetallesAnimal.dart';
 
 class Prueba extends StatefulWidget {
   const Prueba({super.key});
@@ -18,74 +23,133 @@ class Prueba extends StatefulWidget {
 
 class _PruebaState extends State<Prueba> {
   List<Animal>? animalsList;
+  double? scrolledUnderElevation;
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    var response = await BaseClient().get('').catchError((err) {});
+    if (response == null) return;
+    debugPrint('successful:');
+    var animals = animalFromJson(response);
+    debugPrint('Animal count: ${animals.length}');
+    for (var animal in animals) {
+      debugPrint(animal.name);
+    }
+    setState(() {
+      animalsList = animals;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          child: FaIcon(FontAwesomeIcons.cow),
+          backgroundColor: const Color.fromARGB(115, 88, 27, 241),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Prueba2()),
+            );
+          },
+        ),
+        backgroundColor: const Color.fromARGB(223, 221, 209, 250),
+        appBar: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Image.asset(
+              "./assets/images/farm.webp",
+              width: 45,
+              height: 45,
+            ),
+          ),
+          actions: [
+            Container(
+                margin: const EdgeInsets.only(top: 25),
+                child: Text(
+                  'Numero de animales: ${animalsList?.length}',
+                  style: const TextStyle(fontSize: 18),
+                ))
+          ],
+          backgroundColor: Color.fromARGB(115, 88, 27, 241),
+          scrolledUnderElevation: scrolledUnderElevation,
+        ),
         body: SafeArea(
             child: Center(
-      child: Column(
-        children: [
-          AppButton(
-            operation: 'GET',
-            operationColor: Colors.lightGreen,
-            description: 'Fetch users',
-            onPressed: () async {
-              var response = await BaseClient().get('').catchError((err) {});
-              if (response == null) return;
-              debugPrint('successful:');
-              var animals = animalFromJson(response);
-              debugPrint('Animal count: ${animals.length}');
-              for (var animal in animals) {
-                debugPrint(animal.name);
-              }
-              setState(() {
-                animalsList = animals;
-              });
-            },
+          child: Column(
+            children: [
+              SizedBox(height: 10),
+              if (animalsList != null)
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: animalsList!
+                          .map((animal) => GestureDetector(
+                            onDoubleTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => DetallesAnimal(animal: animal)));
+                            },
+                            child: Container(
+                                  width: 350.0, // Ancho personalizado de la Card
+                                  height:
+                                      350.0, // Altura personalizada de la Card
+                                  padding: EdgeInsets.all(
+                                      16.0), // Espacio externo personalizado
+                                  child: Card(
+                                    color: Color.fromARGB(185, 221, 209, 250),
+                                    child: Center(
+                                      // Agregamos un Center widget aquí
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .center, // Alinear verticalmente al centro
+                                        children: [
+                                          if (animal.photo != null)
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(100.0),
+                                              child: Image.network(
+                                                '${animal.photo}',
+                                                width: 215.0,
+                                                height: 215.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          Text(
+                                            ' ${animal.name!}',
+                                            style: const TextStyle(
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          Text(
+                                            '${animal.animal!}',
+                                            style: const TextStyle(
+                                              fontSize: 16.0,
+                                            ),
+                                          ),
+                                          Text(
+                                            '${animal.race!}',
+                                            style: const TextStyle(
+                                              fontSize: 16.0,
+                                            ),
+                                          ),
+                                          // Aquí puede agregar más widgets para mostrar otros datos de cada animal, como su raza, peso, color, etc.
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                          ))
+                          .toList(),
+                    ),
+                  ),
+                )
+            ],
           ),
-          AppButton(
-            operation: 'POST',
-            operationColor: Colors.lightBlue,
-            description: 'Add animal',
-            onPressed: () async {
-              var animal = Animal(
-                name: 'Doris',
-                animal: 'Pescado',
-                race: 'azul',
-                number: '001',
-              );
-              print(animal.name);
-
-              var response =
-                  await BaseClient().post('', animal).catchError((err) {});
-              if (response == null) return;
-              debugPrint('successful:');
-            },
-          ),
-          SizedBox(height: 10),
-          if (animalsList != null)
-            Expanded(
-                child: SingleChildScrollView(
-              child: Column(
-                children: animalsList!
-                    .map((animal) => Card(
-                          child: Column(
-                            children: [
-                              if (animal.photo != null)
-                                Image.network(
-                                    '${animal.photo}'),
-                              Text(animal.name!),
-                              Text(animal.animal!),
-                              Text(animal.race!),
-                              // Aquí puede agregar más widgets para mostrar otros datos de cada animal, como su raza, peso, color, etc.
-                            ],
-                          ),
-                        ))
-                    .toList(),
-              ),
-            )),
-        ],
-      ),
-    )));
+        )));
   }
 }

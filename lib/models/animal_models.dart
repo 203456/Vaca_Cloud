@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-const String baseUrl = 'http://3.137.176.225/api/v1/animal/';
+const String baseUrl = 'http://3.12.155.9/api/v1/animal/';
 
 class BaseClient {
   var client = http.Client();
