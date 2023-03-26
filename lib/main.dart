@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vaca_cloud/pages/Login.dart';
 import 'package:vaca_cloud/pages/Prueba.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+
 import 'package:vaca_cloud/pages/Prueba2.dart';
 
 void main() async {
