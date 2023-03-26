@@ -94,7 +94,7 @@ class _PruebaState extends State<Prueba> {
                       children: animalsList!
                           .map((animal) => GestureDetector(
                             onDoubleTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => DetallesAnimal(animal: animal)));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => DetallesAnimal(animal: animal,token: widget.token,userId: widget.userId,)));
                             },
                             child: Container(
                                   width: 350.0, // Ancho personalizado de la Card

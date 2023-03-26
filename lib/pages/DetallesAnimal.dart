@@ -5,8 +5,14 @@ import 'package:vaca_cloud/components/animal.dart';
 import 'package:vaca_cloud/pages/Prueba2.dart';
 
 class DetallesAnimal extends StatefulWidget {
-  const DetallesAnimal({super.key, required this.animal});
+  const DetallesAnimal({Key? key, required this.animal,required this.token, required this.userId}): super(key: key);
   final Animal animal;
+  final String token;
+  final int userId;
+
+
+  
+  
   
 
   @override
@@ -241,7 +247,7 @@ class _DetallesAnimalState extends State<DetallesAnimal> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (_) => const Prueba2()));
+                                          builder: (_) =>  Prueba2(token: widget.token,userId: widget.userId,)));
                                 },
                                 shape: RoundedRectangleBorder(
                                     side: const BorderSide(
