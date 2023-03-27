@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:vaca_cloud/components/animal.dart';
-import 'package:vaca_cloud/pages/Prueba2.dart';
+import 'package:vaca_cloud/pages/CreateAnimal.dart';
+import 'package:vaca_cloud/pages/CreateAnimal.dart';
+import 'package:vaca_cloud/pages/EditAnimal.dart';
+import 'package:vaca_cloud/pages/Prueba.dart';
 
 class DetallesAnimal extends StatefulWidget {
   const DetallesAnimal({Key? key, required this.animal,required this.token, required this.userId}): super(key: key);
@@ -24,6 +27,7 @@ class _DetallesAnimalState extends State<DetallesAnimal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:const Color.fromARGB(223, 221, 209, 250),
       appBar: AppBar(
         title: Text(widget.animal.name!),
       ),
@@ -39,33 +43,9 @@ class _DetallesAnimalState extends State<DetallesAnimal> {
                     minHeight: viewportConstraints.maxHeight,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 24),
+                    padding: const EdgeInsets.only(top: 10),
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: Row(
-                            children: [ 
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  textStyle: const TextStyle(fontSize: 20),
-                                ),
-                                onPressed: null,
-                                child: const Text('Agregar imagen'),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 100),
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    textStyle: const TextStyle(fontSize: 20),
-                                  ),
-                                  onPressed: null,
-                                  child: const Text('Agregar imagen'),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
                         Padding(
                           padding: const EdgeInsets.only(
                           top: 40, left: 20, right: 20),
@@ -78,190 +58,101 @@ class _DetallesAnimalState extends State<DetallesAnimal> {
                             ),
                           ) 
                         ),
+                        Padding(padding: const EdgeInsets.only(top: 20),
+                          child: Text(widget.animal.name!,style: const TextStyle(fontSize: 32, color: Colors.black),),
+                        ),
+                        Padding(padding: const EdgeInsets.only(top: 10),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10), // Establecer el radio de la esquina
+                              color: Color.fromARGB(68, 63, 72, 33),
+                            ),
+                            child: SizedBox(
+                              
+                              height: 275,
+                              width: 300,                                                         
+                              child:
+                                Column(
+                                  children: [
+                                    Padding(padding:const EdgeInsets.only(top: 50),
+                                        child: Text('ANIMAL:               ${widget.animal.animal!}', style: TextStyle(fontSize: 20),)
+                                    ),
+                                    Padding(padding: const EdgeInsets.only(top: 25),
+                                        child: Text('RAZA:                ${widget.animal.race!}',style: TextStyle(fontSize: 20),)
+                                    ),
+                                    Padding(padding: const EdgeInsets.only(top: 25,),
+                                        child: Text('NUMBER:             ${widget.animal.number!}',style: TextStyle(fontSize: 20),)
+                                    ),
+                                    Padding(padding: const EdgeInsets.only(top: 26),
+                                        child: Text('BIRTHDATE:     ${widget.animal.birthdate!}',style: TextStyle(fontSize: 20),)
+                                    ),
+                                  ],
+                              )
+                            ),
+                          )
+                        ),
 
-                         Padding(
-                          padding:const EdgeInsets.only(top:35,bottom: 20),
-                          child: SizedBox( 
-                            height: 50,
-                            child: TextField(
-                              decoration: InputDecoration(
-                              enabledBorder: const OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15.0)),
-                                  borderSide: BorderSide(
-                                      color:
-                                          Color.fromARGB(134, 115, 57, 231))),
-                              focusedBorder: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
-                                borderSide: BorderSide(color: Colors.blue),
-                              ),
-                              prefix: const Icon(Icons.email),
-                              hintText: widget.animal.name,
-                              hintStyle: const TextStyle(
-                                  fontSize: 18,
-                                  color: Color.fromARGB(149, 0, 0, 0)),
-                              ),
-                            ),
-                          )
-                        ),
-                        Padding(
-                          padding:const EdgeInsets.only(bottom: 20),
-                          child: SizedBox( 
-                            height: 50,
-                            child: TextField(
-                              decoration: InputDecoration(
-                              enabledBorder: const OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15.0)),
-                                  borderSide: BorderSide(
-                                      color:
-                                          Color.fromARGB(134, 115, 57, 231))),
-                              focusedBorder: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
-                                borderSide: BorderSide(color: Colors.blue),
-                              ),
-                              prefix: const Icon(Icons.email),
-                              hintText: widget.animal.name,
-                              hintStyle: const TextStyle(
-                                  fontSize: 18,
-                                  color: Color.fromARGB(149, 0, 0, 0)),
-                              ),
-                            ),
-                          )
-                        ),
-                        Padding(
-                          padding:const EdgeInsets.only(bottom: 20),
-                          child: SizedBox( 
-                            height: 50,
-                            child: TextField(
-                              decoration: InputDecoration(
-                              enabledBorder: const OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15.0)),
-                                  borderSide: BorderSide(
-                                      color:
-                                          Color.fromARGB(134, 115, 57, 231))),
-                              focusedBorder: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
-                                borderSide: BorderSide(color: Colors.blue),
-                              ),
-                              prefix: const Icon(Icons.email),
-                              hintText: widget.animal.name,
-                              hintStyle: const TextStyle(
-                                  fontSize: 18,
-                                  color: Color.fromARGB(149, 0, 0, 0)),
-                              ),
-                            ),
-                          )
-                        ),
-                        Padding(
-                          padding:const EdgeInsets.only(bottom: 20),
-                          child: SizedBox( 
-                            height: 50,
-                            child: TextField(
-                              decoration: InputDecoration(
-                              enabledBorder: const OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15.0)),
-                                  borderSide: BorderSide(
-                                      color:
-                                          Color.fromARGB(134, 115, 57, 231))),
-                              focusedBorder: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
-                                borderSide: BorderSide(color: Colors.blue),
-                              ),
-                              prefix: const Icon(Icons.email),
-                              hintText: widget.animal.name,
-                              hintStyle: const TextStyle(
-                                  fontSize: 18,
-                                  color: Color.fromARGB(149, 0, 0, 0)),
-                              ),
-                            ),
-                          )
-                        ),
-                         Padding(
-                          padding:const EdgeInsets.only(bottom: 20),
-                          child: SizedBox( 
-                            height: 50,
-                            child: TextField(
-                              decoration: InputDecoration(
-                              enabledBorder: const OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15.0)),
-                                  borderSide: BorderSide(
-                                      color:
-                                          Color.fromARGB(134, 115, 57, 231))),
-                              focusedBorder: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
-                                borderSide: BorderSide(color: Colors.blue),
-                              ),
-                              prefix: const Icon(Icons.email),
-                              hintText: widget.animal.name,
-                              hintStyle: const TextStyle(
-                                  fontSize: 18,
-                                  color: Color.fromARGB(149, 0, 0, 0)),
-                              ),
-                            ),
-                          )
-                        ),
-                        Padding(
-                          padding:const EdgeInsets.only(bottom: 20),
-                          child: SizedBox( 
-                            height: 50,
-                            child: TextField(
-                              decoration: InputDecoration(
-                              enabledBorder: const OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15.0)),
-                                  borderSide: BorderSide(
-                                      color:
-                                          Color.fromARGB(134, 115, 57, 231))),
-                              focusedBorder: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
-                                borderSide: BorderSide(color: Colors.blue),
-                              ),
-                              prefix: const Icon(Icons.email),
-                              hintText: widget.animal.name,
-                              hintStyle: const TextStyle(
-                                  fontSize: 18,
-                                  color: Color.fromARGB(149, 0, 0, 0)),
-                              ),
-                            ),
-                          )
-                        ),
+
+
+
                         Padding(
                             padding: const EdgeInsets.only(
-                                right: 30.0, left: 30, top: 40),
-                            child: SizedBox(
-                              height: 50,
-                              width: 350,
-                              child: MaterialButton(
-                                color: Color.fromARGB(255, 104, 91, 227),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) =>  Prueba2(token: widget.token,userId: widget.userId,)));
-                                },
-                                shape: RoundedRectangleBorder(
-                                    side: const BorderSide(
-                                        width: 1, color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: const Text(
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color:
+                              right: 25.0, left: 40, top: 40, bottom: 30),
+                            child: Row(
+                              children: [
+                              SizedBox(
+                                height: 60,
+                                width: 130,
+                                child: MaterialButton(
+                                  color: Color.fromARGB(255, 117, 203, 88),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) =>  CreateAnimal(token: widget.token,userId: widget.userId,)
+                                        )
+                                      );
+                                  },
+                                  shape: RoundedRectangleBorder(
+                                      side: const BorderSide(
+                                          width: 1, color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: const Text(
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color:
                                           Color.fromARGB(255, 250, 250, 250)),
-                                  'Enviar solicitud',
+                                    'REGRESAR',
+                                  ),
                                 ),
                               ),
-                            )),
+                              Padding(padding: EdgeInsets.only(left: 10),
+                              child: SizedBox(
+                                  height: 60,
+                                  width: 140,
+                                  child: MaterialButton(
+                                    color: Color.fromARGB(255, 104, 91, 227),
+                                    onPressed: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Prueba(token: widget.token,userId: widget.userId,)));
+                                    },
+                                    shape: RoundedRectangleBorder(
+                                        side: const BorderSide(
+                                            width: 1, color: Colors.grey),
+                                        borderRadius: BorderRadius.circular(20)),
+                                    child: const Text(
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color:
+                                              Color.fromARGB(255, 250, 250, 250)),
+                                      'EDITAR',
+                                    ),
+                                  ),
+                                ),
+                              )
+                              
+                              ],
+                            ),
+                          ),
                       ],
                     ),
                   ),
