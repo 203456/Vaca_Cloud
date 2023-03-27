@@ -6,10 +6,11 @@ import 'package:vaca_cloud/components/animal.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/container.dart';
-import 'package:vaca_cloud/pages/Prueba2.dart';
+import 'package:vaca_cloud/pages/CreateAnimal.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'DetallesAnimal.dart';
+import 'EditAnimal.dart';
 
 class Prueba extends StatefulWidget {
   final String token;
@@ -53,11 +54,11 @@ class _PruebaState extends State<Prueba> {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           child: FaIcon(FontAwesomeIcons.cow),
-          backgroundColor: const Color.fromARGB(115, 88, 27, 241),
+        backgroundColor:Color.fromARGB(210, 169, 199, 250),
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Prueba2(token: widget.token,userId: widget.userId,)),
+              MaterialPageRoute(builder: (context) => CreateAnimal(token: widget.token,userId: widget.userId,)),
             );
           },
         ),
@@ -73,7 +74,7 @@ class _PruebaState extends State<Prueba> {
           ),
           actions: [
             Container(
-                margin: const EdgeInsets.only(top: 25),
+                margin: const EdgeInsets.only(top: 25, right: 10),
                 child: Text(
                   'Numero de animales: ${animalsList?.length}',
                   style: const TextStyle(fontSize: 18),
