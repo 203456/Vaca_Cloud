@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:vaca_cloud/components/animal.dart';
+import 'package:vaca_cloud/pages/DetallesAnimal.dart';
 import 'package:vaca_cloud/pages/CreateAnimal.dart';
 import 'package:vaca_cloud/pages/CreateAnimal.dart';
+import 'package:vaca_cloud/pages/Prueba.dart';
 
 class EditAnimal extends StatefulWidget {
   const EditAnimal({Key? key, required this.animal,required this.token, required this.userId}): super(key: key);
@@ -215,32 +217,7 @@ class _EditAnimalState extends State<EditAnimal> {
                             ),
                           )
                         ),
-                        
-                        Padding(
-                          padding:const EdgeInsets.only(bottom: 20),
-                          child: SizedBox( 
-                            height: 50,
-                            child: TextField(
-                              decoration: InputDecoration(
-                              enabledBorder: const OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15.0)),
-                                  borderSide: BorderSide(
-                                      color:
-                                          Color.fromARGB(134, 115, 57, 231))),
-                              focusedBorder: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
-                                borderSide: BorderSide(color: Colors.blue),
-                              ),
-                              hintText: widget.animal.name,
-                              hintStyle: const TextStyle(
-                                  fontSize: 18,
-                                  color: Color.fromARGB(149, 0, 0, 0)),
-                              ),
-                            ),
-                          )
-                        ),
+                      
                         Padding(padding: EdgeInsets.only(top: 10),
                           child: TextButton(
                                   style: TextButton.styleFrom(
@@ -267,7 +244,7 @@ class _EditAnimalState extends State<EditAnimal> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (_) =>  CreateAnimal(token: widget.token,userId: widget.userId,)
+                                          builder: (_) =>  DetallesAnimal(animal: widget.animal, token: widget.token,userId: widget.userId,)
                                         )
                                       );
                                   },

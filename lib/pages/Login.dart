@@ -65,7 +65,7 @@ class _LoginState extends State<Login> {
                                     BorderRadius.all(Radius.circular(15.0)),
                                 borderSide: BorderSide(color: Colors.blue),
                               ),
-                              prefix: Icon(Icons.email),
+                              prefix: Icon(Icons.person),
                               hintText: 'username',
                               hintStyle: TextStyle(
                                   color: Color.fromARGB(151, 156, 152, 152)),
@@ -97,7 +97,7 @@ class _LoginState extends State<Login> {
                                     BorderRadius.all(Radius.circular(15.0)),
                                 borderSide: BorderSide(color: Colors.blue),
                               ),
-                              prefix: Icon(Icons.email),
+                              prefix: Icon(Icons.lock),
                               hintText: 'Contraseña',
                               hintStyle: TextStyle(
                                   color: Color.fromARGB(151, 156, 152, 152)),

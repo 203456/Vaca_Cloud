@@ -97,7 +97,7 @@ class _DetallesAnimalState extends State<DetallesAnimal> {
 
                         Padding(
                             padding: const EdgeInsets.only(
-                              right: 25.0, left: 40, top: 40, bottom: 30),
+                              right: 25.0, left: 120, top: 40, bottom: 30),
                             child: Row(
                               children: [
                               SizedBox(
@@ -106,12 +106,8 @@ class _DetallesAnimalState extends State<DetallesAnimal> {
                                 child: MaterialButton(
                                   color: Color.fromARGB(255, 117, 203, 88),
                                   onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (_) =>  CreateAnimal(token: widget.token,userId: widget.userId,)
-                                        )
-                                      );
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Prueba(token: widget.token,userId: widget.userId,)));
+                                      
                                   },
                                   shape: RoundedRectangleBorder(
                                       side: const BorderSide(
@@ -125,31 +121,7 @@ class _DetallesAnimalState extends State<DetallesAnimal> {
                                     'REGRESAR',
                                   ),
                                 ),
-                              ),
-                              Padding(padding: EdgeInsets.only(left: 10),
-                              child: SizedBox(
-                                  height: 60,
-                                  width: 140,
-                                  child: MaterialButton(
-                                    color: Color.fromARGB(255, 104, 91, 227),
-                                    onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Prueba(token: widget.token,userId: widget.userId,)));
-                                    },
-                                    shape: RoundedRectangleBorder(
-                                        side: const BorderSide(
-                                            width: 1, color: Colors.grey),
-                                        borderRadius: BorderRadius.circular(20)),
-                                    child: const Text(
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color:
-                                              Color.fromARGB(255, 250, 250, 250)),
-                                      'EDITAR',
-                                    ),
-                                  ),
-                                ),
-                              )
-                              
+                              ),                             
                               ],
                             ),
                           ),

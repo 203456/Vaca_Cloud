@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:vaca_cloud/pages/Prueba.dart';
 
 class CreateAnimal extends StatefulWidget {
   final String token;
@@ -43,7 +44,7 @@ class _CreateAnimalState extends State<CreateAnimal> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 5, top: 30),
+                          padding: const EdgeInsets.only(left: 87, top: 30),
                           child: Row(
                             children: [ 
                               TextButton(
@@ -58,19 +59,7 @@ class _CreateAnimalState extends State<CreateAnimal> {
                                 },
                                 child: const Text('AGREGAR IMAGEN'),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    textStyle: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18
-                                      ),
-                                  ),
-                                  onPressed: null,
-                                  child: const Text('ELIMINAR IMAGEN'),
-                                ),
-                              )
+
                             ],
                           ),
                         ),
@@ -115,7 +104,7 @@ class _CreateAnimalState extends State<CreateAnimal> {
                                     BorderRadius.all(Radius.circular(15.0)),
                                 borderSide: BorderSide(color: Colors.blue),
                               ),
-                              hintText: "Name",
+                              hintText: "NOMBRE",
                               hintStyle:  TextStyle(
                                   fontSize: 18,
                                   color: Color.fromARGB(149, 0, 0, 0)),
@@ -143,7 +132,7 @@ class _CreateAnimalState extends State<CreateAnimal> {
                                     BorderRadius.all(Radius.circular(15.0)),
                                 borderSide: BorderSide(color: Colors.blue),
                               ),
-                              hintText: "animal",
+                              hintText: "ANIMAL",
                               hintStyle: TextStyle(
                                   fontSize: 18,
                                   color: Color.fromARGB(149, 0, 0, 0)),
@@ -228,7 +217,7 @@ class _CreateAnimalState extends State<CreateAnimal> {
                                     BorderRadius.all(Radius.circular(15.0)),
                                 borderSide: BorderSide(color: Colors.blue),
                               ),
-                              hintText: "BIRTHDATE",
+                              hintText: "DIA DE NACIMIENTO",
                               hintStyle: TextStyle(
                                   fontSize: 18,
                                   color: Color.fromARGB(149, 0, 0, 0)),
@@ -237,45 +226,6 @@ class _CreateAnimalState extends State<CreateAnimal> {
                           )
                         ),
                         
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 20),
-                          child: SizedBox( 
-                            height: 50,
-                            child: TextField(
-                              decoration: InputDecoration(
-                                    filled: true,
-                                  fillColor: Colors.white, 
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15.0)),
-                                  borderSide: BorderSide(
-                                      color:
-                                          Color.fromARGB(134, 115, 57, 231))),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
-                                borderSide: BorderSide(color: Colors.blue),
-                              ),
-                              hintText: "PADRE",
-                              hintStyle:  TextStyle(
-                                  fontSize: 18,
-                                  color: Color.fromARGB(149, 0, 0, 0)),
-                              ),
-                            ),
-                          )
-                        ),
-                        Padding(padding: EdgeInsets.only(top: 10),
-                          child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    textStyle: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20
-                                    ),
-                                  ),
-                                  onPressed: null,
-                                  child: const Text("AGREGAR EVENTO"),
-                                ),
-                            ),
                         Padding(
                             padding: const EdgeInsets.only(
                               right: 25.0, left: 40, top: 20, bottom: 30),
@@ -290,7 +240,7 @@ class _CreateAnimalState extends State<CreateAnimal> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (_) =>  CreateAnimal(token: widget.token,userId: widget.userId,)
+                                          builder: (_) =>  Prueba(token: widget.token,userId: widget.userId,)
                                         )
                                       );
                                   },
@@ -403,8 +353,32 @@ class _CreateAnimalState extends State<CreateAnimal> {
           options: Options(headers: {
             'Authorization': 'Token $token',
           }));
-
+      _showAlertDialog("Exito", "Animal nuevo guardado");
       print(response.data);
+
     }
+  }
+
+
+    void _showAlertDialog(String title, String content) {
+    showDialog(
+        context: context,
+        builder: (buildcontext) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(content),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text(
+                  "CERRAR",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 }
