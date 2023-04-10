@@ -3,6 +3,7 @@ import 'package:vaca_cloud/pages/Login.dart';
 import 'package:vaca_cloud/pages/Prueba.dart';
 
 import 'package:vaca_cloud/pages/CreateAnimal.dart';
+import 'package:vaca_cloud/pages/Register.dart';
 
 void main() async {
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Login(),
+      home: const Register(),
     );
   }
 }
