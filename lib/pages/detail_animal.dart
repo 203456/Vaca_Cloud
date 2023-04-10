@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:vaca_cloud/components/animal.dart';
-import 'package:vaca_cloud/pages/CreateAnimal.dart';
-import 'package:vaca_cloud/pages/CreateAnimal.dart';
-import 'package:vaca_cloud/pages/EditAnimal.dart';
-import 'package:vaca_cloud/pages/Prueba.dart';
+import 'package:vaca_cloud/pages/create_animal.dart';
+import 'package:vaca_cloud/pages/list_animal.dart';
 
 class DetallesAnimal extends StatefulWidget {
   const DetallesAnimal({Key? key, required this.animal,required this.token, required this.userId}): super(key: key);
@@ -65,7 +61,7 @@ class _DetallesAnimalState extends State<DetallesAnimal> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10), // Establecer el radio de la esquina
-                              color: Color.fromARGB(68, 63, 72, 33),
+                              color: const Color.fromARGB(68, 63, 72, 33),
                             ),
                             child: SizedBox(
                               
@@ -75,16 +71,16 @@ class _DetallesAnimalState extends State<DetallesAnimal> {
                                 Column(
                                   children: [
                                     Padding(padding:const EdgeInsets.only(top: 50),
-                                        child: Text('ANIMAL:               ${widget.animal.animal!}', style: TextStyle(fontSize: 20),)
+                                        child: Text('ANIMAL:               ${widget.animal.animal!}', style: const TextStyle(fontSize: 20),)
                                     ),
                                     Padding(padding: const EdgeInsets.only(top: 25),
-                                        child: Text('RAZA:                ${widget.animal.race!}',style: TextStyle(fontSize: 20),)
+                                        child: Text('RAZA:                ${widget.animal.race!}',style:const TextStyle(fontSize: 20),)
                                     ),
                                     Padding(padding: const EdgeInsets.only(top: 25,),
-                                        child: Text('NUMBER:             ${widget.animal.number!}',style: TextStyle(fontSize: 20),)
+                                        child: Text('NUMBER:             ${widget.animal.number!}',style:const TextStyle(fontSize: 20),)
                                     ),
                                     Padding(padding: const EdgeInsets.only(top: 26),
-                                        child: Text('BIRTHDATE:     ${widget.animal.birthdate!}',style: TextStyle(fontSize: 20),)
+                                        child: Text('BIRTHDATE:     ${widget.animal.birthdate!}',style:const TextStyle(fontSize: 20),)
                                     ),
                                   ],
                               )
@@ -104,7 +100,7 @@ class _DetallesAnimalState extends State<DetallesAnimal> {
                                 height: 60,
                                 width: 130,
                                 child: MaterialButton(
-                                  color: Color.fromARGB(255, 117, 203, 88),
+                                  color: const Color.fromARGB(255, 117, 203, 88),
                                   onPressed: () {
                                     Navigator.push(
                                         context,
@@ -126,12 +122,12 @@ class _DetallesAnimalState extends State<DetallesAnimal> {
                                   ),
                                 ),
                               ),
-                              Padding(padding: EdgeInsets.only(left: 10),
+                              Padding(padding:const EdgeInsets.only(left: 10),
                               child: SizedBox(
                                   height: 60,
                                   width: 140,
                                   child: MaterialButton(
-                                    color: Color.fromARGB(255, 104, 91, 227),
+                                    color:const Color.fromARGB(255, 104, 91, 227),
                                     onPressed: () {
                                       Navigator.push(context, MaterialPageRoute(builder: (context) => Prueba(token: widget.token,userId: widget.userId,)));
                                     },

@@ -1,16 +1,11 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:vaca_cloud/components/app_button.dart';
 import 'package:vaca_cloud/models/animal_models.dart';
 import 'package:vaca_cloud/components/animal.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:vaca_cloud/pages/CreateAnimal.dart';
+import 'package:vaca_cloud/pages/create_animal.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'detail_animal.dart';
 
-import 'DetallesAnimal.dart';
-import 'EditAnimal.dart';
 
 class Prueba extends StatefulWidget {
   final String token;
@@ -53,14 +48,14 @@ class _PruebaState extends State<Prueba> {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          child: FaIcon(FontAwesomeIcons.cow),
-        backgroundColor:Color.fromARGB(210, 169, 199, 250),
+          backgroundColor:const Color.fromARGB(210, 169, 199, 250),
           onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => CreateAnimal(token: widget.token,userId: widget.userId,)),
             );
           },
+          child:const FaIcon(FontAwesomeIcons.cow),
         ),
         backgroundColor: const Color.fromARGB(223, 221, 209, 250),
         appBar: AppBar(
@@ -80,14 +75,14 @@ class _PruebaState extends State<Prueba> {
                   style: const TextStyle(fontSize: 18),
                 ))
           ],
-          backgroundColor: Color.fromARGB(115, 88, 27, 241),
+          backgroundColor: const Color.fromARGB(115, 88, 27, 241),
           scrolledUnderElevation: scrolledUnderElevation,
         ),
         body: SafeArea(
             child: Center(
           child: Column(
             children: [
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               if (animalsList != null)
                 Expanded(
                   child: SingleChildScrollView(
@@ -101,10 +96,10 @@ class _PruebaState extends State<Prueba> {
                                   width: 350.0, // Ancho personalizado de la Card
                                   height:
                                       350.0, // Altura personalizada de la Card
-                                  padding: EdgeInsets.all(
+                                  padding: const EdgeInsets.all(
                                       16.0), // Espacio externo personalizado
                                   child: Card(
-                                    color: Color.fromARGB(185, 221, 209, 250),
+                                    color:const Color.fromARGB(185, 221, 209, 250),
                                     child: Center(
                                       // Agregamos un Center widget aquí
                                       child: Column(
@@ -131,13 +126,13 @@ class _PruebaState extends State<Prueba> {
                                             ),
                                           ),
                                           Text(
-                                            '${animal.animal!}',
+                                            animal.animal!,
                                             style: const TextStyle(
                                               fontSize: 16.0,
                                             ),
                                           ),
                                           Text(
-                                            '${animal.race!}',
+                                            animal.race!,
                                             style: const TextStyle(
                                               fontSize: 16.0,
                                             ),

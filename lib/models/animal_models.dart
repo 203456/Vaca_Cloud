@@ -5,17 +5,16 @@ import 'package:http/http.dart' as http;
 const String baseUrl = 'http://3.12.155.9/api/v1/animal/';
 
 class BaseClient {
-  final String Token;
-  BaseClient(this.Token);
+  final String token;
+  BaseClient(this.token);
   var client = http.Client();
   //GET
   Future<dynamic> get(String api) async {
     var url = Uri.parse(baseUrl + api);
 
     var response = await client.get(url, headers: {
-      'Authorization': 'Token $Token',
+      'Authorization': 'Token $token',
     });
-    print(response.statusCode);
     if (response.statusCode == 200) {
       return response.body;
     } else {
@@ -25,10 +24,6 @@ class BaseClient {
 
   Future<dynamic> post(String api, dynamic object) async {
     var url = Uri.parse(baseUrl + api);
-    print(url);
-    var _payload = json.encode(object);
-    print(object);
-    var _headers = {'Content-Type': 'application/json'};
 
     var response = await client.post(url,
         body: jsonEncode(<String, String>{
@@ -37,9 +32,7 @@ class BaseClient {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
-    print(response);
     if (response.statusCode == 200) {
-      print(response.statusCode);
       return response.body;
     } else {
       // If the server did not return a 201 CREATED response,

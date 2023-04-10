@@ -7,13 +7,5 @@ class Animal {
   String ?birthdate;
   String ?photo;
 
-  Animal(id, name, animal,race,number,birthdate,photo){
-  this.id = id;
-  this.name = name;
-  this.animal = animal; 
-  this.race = race;
-  this.number = number;
-  this.birthdate = birthdate;
-  this.photo = photo;
-  }
+  Animal(this.id, this.name, this.animal,this.race,this.number,this.birthdate,this.photo);
 }

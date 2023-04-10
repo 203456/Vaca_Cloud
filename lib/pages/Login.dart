@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:vaca_cloud/pages/Principal.dart';
-import 'package:vaca_cloud/pages/Prueba.dart';
+import 'package:vaca_cloud/pages/list_animal.dart';
 import 'package:dio/dio.dart';
 
 class Login extends StatefulWidget {
@@ -13,13 +10,13 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController _username = TextEditingController();
-  TextEditingController _password = TextEditingController();
+  final TextEditingController _username = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(223, 221, 209, 250),
+      backgroundColor: const Color.fromARGB(223, 221, 209, 250),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
@@ -111,7 +108,7 @@ class _LoginState extends State<Login> {
                               height: 50,
                               width: 350,
                               child: MaterialButton(
-                                color: Color.fromARGB(255, 104, 91, 227),
+                                color: const Color.fromARGB(255, 104, 91, 227),
                                 onPressed: () {
                                   print(_password.text);
                                   print(_username.text);
@@ -165,12 +162,12 @@ class _LoginState extends State<Login> {
         data: formData,
       );
       print(response.data);
-      String Token = response.data["token"];
+      String token = response.data["token"];
       int userID = response.data["user_id"];
-      print(Token);
+      print(token);
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (_) => Prueba(token: Token,userId: userID,)));
+          context, MaterialPageRoute(builder: (_) => Prueba(token: token,userId: userID,)));
     } catch (e) {
       if (e is DioError) {
         if (e.response?.statusCode == 400) {
