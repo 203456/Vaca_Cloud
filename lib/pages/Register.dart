@@ -13,7 +13,10 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  TextEditingController _name = TextEditingController();
+  TextEditingController _last_name = TextEditingController();
   TextEditingController _username = TextEditingController();
+  TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
 
   @override
@@ -41,8 +44,7 @@ class _RegisterState extends State<Register> {
                           child: Image.asset("assets/images/logo3.png"),
                         ),
                         const Padding(
-                          padding:
-                              EdgeInsets.only( top: 50, bottom: 4),
+                          padding: EdgeInsets.only(top: 50, bottom: 4),
                           child: Text(
                               style: TextStyle(
                                   fontSize: 36,
@@ -58,11 +60,11 @@ class _RegisterState extends State<Register> {
                                   color: Color.fromARGB(255, 0, 0, 0)),
                               "Ingrese su nombre"),
                         ),
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.only(bottom: 20),
                           child: TextField(
-
-                            decoration:  InputDecoration(
+                            controller: _name,
+                            decoration: const InputDecoration(
                               enabledBorder: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(15.0)),
@@ -90,12 +92,11 @@ class _RegisterState extends State<Register> {
                                   color: Color.fromARGB(255, 0, 0, 0)),
                               "Ingrese su apellido"),
                         ),
-                       const  Padding(
+                        Padding(
                           padding: EdgeInsets.only(bottom: 20),
                           child: TextField(
-
-                            obscureText: true,
-                            decoration:  InputDecoration(
+                            controller: _last_name,
+                            decoration: const InputDecoration(
                               enabledBorder: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(15.0)),
@@ -106,7 +107,8 @@ class _RegisterState extends State<Register> {
                                     BorderRadius.all(Radius.circular(15.0)),
                                 borderSide: BorderSide(color: Colors.blue),
                               ),
-                              prefix: Icon(Icons.face_retouching_natural_outlined),
+                              prefix:
+                                  Icon(Icons.face_retouching_natural_outlined),
                               hintText: 'Apellido',
                               hintStyle: TextStyle(
                                   color: Color.fromARGB(151, 156, 152, 152)),
@@ -122,12 +124,11 @@ class _RegisterState extends State<Register> {
                                   color: Color.fromARGB(255, 0, 0, 0)),
                               "Ingrese su nombre de usuario"),
                         ),
-                        const Padding(
-                          padding:  EdgeInsets.only(bottom: 20),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 20),
                           child: TextField(
-
-                            obscureText: true,
-                            decoration:  InputDecoration(
+                            controller: _username,
+                            decoration: const InputDecoration(
                               enabledBorder: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(15.0)),
@@ -145,7 +146,7 @@ class _RegisterState extends State<Register> {
                             ),
                           ),
                         ),
-                         const Padding(
+                        const Padding(
                           padding:
                               EdgeInsets.only(right: 145, top: 10, bottom: 4),
                           child: Text(
@@ -154,12 +155,11 @@ class _RegisterState extends State<Register> {
                                   color: Color.fromARGB(255, 0, 0, 0)),
                               "Ingrese su correo electronico"),
                         ),
-                        const Padding(
-                          padding:  EdgeInsets.only(bottom: 20),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 20),
                           child: TextField(
-
-                            obscureText: true,
-                            decoration:  InputDecoration(
+                            controller: _email,
+                            decoration: const InputDecoration(
                               enabledBorder: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(15.0)),
@@ -186,12 +186,12 @@ class _RegisterState extends State<Register> {
                                   color: Color.fromARGB(255, 0, 0, 0)),
                               "Ingrese su contraseña"),
                         ),
-                        const Padding(
-                          padding:  EdgeInsets.only(bottom: 20),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 20),
                           child: TextField(
-
+                            controller: _password,
                             obscureText: true,
-                            decoration:  InputDecoration(
+                            decoration: const InputDecoration(
                               enabledBorder: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(15.0)),
@@ -210,10 +210,10 @@ class _RegisterState extends State<Register> {
                           ),
                         ),
                         Padding(
-                            padding: const EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               right: 25.0, left: 30, top: 30, bottom: 30),
-                            child: Row(
-                              children: [
+                          child: Row(
+                            children: [
                               SizedBox(
                                 height: 60,
                                 width: 150,
@@ -223,9 +223,7 @@ class _RegisterState extends State<Register> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (_) =>  Login()
-                                        )
-                                      );
+                                            builder: (_) => Login()));
                                   },
                                   shape: RoundedRectangleBorder(
                                       side: const BorderSide(
@@ -235,38 +233,51 @@ class _RegisterState extends State<Register> {
                                     style: TextStyle(
                                         fontSize: 18,
                                         color:
-                                          Color.fromARGB(255, 250, 250, 250)),
+                                            Color.fromARGB(255, 250, 250, 250)),
                                     'CANCELAR',
                                   ),
                                 ),
                               ),
-                              Padding(padding: EdgeInsets.only(left: 10),
-                              child: SizedBox(
+                              Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: SizedBox(
                                   height: 60,
                                   width: 150,
                                   child: MaterialButton(
                                     color: Color.fromARGB(255, 104, 91, 227),
                                     onPressed: () {
-                                      
+                                      print(_name.text);
+                                      print(_last_name.text);
+                                      print(_username.text);
+                                      print(_password.text);
+                                      print(_email.text);
+                                      var data = {
+                                        "first_name": _name.text,
+                                        "last_name": _last_name.text,
+                                        "username": _username.text,
+                                        "email": _email.text,
+                                        "password": _password.text,
+                                      };
+                                      dioPost(data);
                                     },
                                     shape: RoundedRectangleBorder(
                                         side: const BorderSide(
                                             width: 1, color: Colors.grey),
-                                        borderRadius: BorderRadius.circular(20)),
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
                                     child: const Text(
                                       style: TextStyle(
                                           fontSize: 18,
-                                          color:
-                                              Color.fromARGB(255, 250, 250, 250)),
+                                          color: Color.fromARGB(
+                                              255, 250, 250, 250)),
                                       'REGISTRARSE',
                                     ),
                                   ),
                                 ),
                               )
-                              
-                              ],
-                            ),
+                            ],
                           ),
+                        ),
                       ],
                     ),
                   ),
@@ -277,5 +288,85 @@ class _RegisterState extends State<Register> {
         ),
       ),
     );
+  }
+
+  void dioPost(data) async {
+    FormData formData = FormData.fromMap({
+      "first_name": data["first_name"],
+      "last_name": data["last_name"],
+      "email": data["email"],
+      "username": data["username"],
+      "password": data["password"],
+    });
+    print("Se entro al post");
+
+    Dio dio = Dio();
+    try {
+      final response = await dio.post(
+        "http://3.12.155.9/api/v1/register/",
+        data: formData,
+      );
+      print(response.data);
+      _showAlertDialog2("Usuario creado", "Por favor inicie sesion");
+    } catch (e) {
+      print("Error");
+      print(e);
+      if (e is DioError) {
+        print(e.response!.data);
+        if (e.response?.statusCode == 400) {
+          _showAlertDialog("Acceso deGANADO", "${e.response!.data}");
+          print("Bad request error: ${e.response!.data}");
+        }
+        if (e.response?.statusCode == 404) {
+          _showAlertDialog("Acceso deGANADO", "Credenciales invalidas");
+          print("Bad request error: ${e.response!.data}");
+        }
+      }
+    }
+  }
+
+  void _showAlertDialog(String title, String content) {
+    showDialog(
+        context: context,
+        builder: (buildcontext) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(content),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text(
+                  "CERRAR",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  void _showAlertDialog2(String title, String content) {
+    showDialog(
+        context: context,
+        builder: (buildcontext) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(content),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text(
+                  "Iniciar sesion",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (_) => const Login()));
+                },
+              )
+            ],
+          );
+        });
   }
 }
