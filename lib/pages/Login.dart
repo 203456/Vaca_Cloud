@@ -112,7 +112,7 @@ class _LoginState extends State<Login> {
                                 right: 30.0, left: 30, top: 40),
                             child: SizedBox(
                               height: 50,
-                              width: 350,
+                              width: 210,
                               child: MaterialButton(
                                 color: Color.fromARGB(255, 104, 91, 227),
                                 onPressed: () {
@@ -139,7 +139,7 @@ class _LoginState extends State<Login> {
                                       fontSize: 18,
                                       color:
                                           Color.fromARGB(255, 250, 250, 250)),
-                                  'Enviar solicitud',
+                                  'INGRESAR',
                                 ),
                               ),
                             )),
