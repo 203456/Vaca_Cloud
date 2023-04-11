@@ -48,7 +48,7 @@ class _CreateAnimalState extends State<CreateAnimal> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 87, top: 30),
+                          padding: const EdgeInsets.only(left: 100, top: 30),
                           child: Row(
                             children: [
                               TextButton(
@@ -191,13 +191,10 @@ class _CreateAnimalState extends State<CreateAnimal> {
                                 ),
                               ),
                             )),
-                        Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: SizedBox(
-                              height: 50,
-                              child: TextField(
-                                controller: _birthdate,
-                                decoration: const InputDecoration(
+
+                        DateTimeField(
+                            mode: DateTimeFieldPickerMode.date,
+                            decoration: const InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white,
                                   enabledBorder: OutlineInputBorder(
@@ -211,18 +208,8 @@ class _CreateAnimalState extends State<CreateAnimal> {
                                         BorderRadius.all(Radius.circular(15.0)),
                                     borderSide: BorderSide(color: Colors.blue),
                                   ),
-                                  hintText: "DIA DE NACIMIENTO",
-                                  hintStyle: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromARGB(149, 0, 0, 0)),
-                                ),
-                              ),
-                            )),
-                        DateTimeField(
-                            mode: DateTimeFieldPickerMode.date,
-                            decoration: const InputDecoration(
                                 hintText:
-                                    'Please select your birthday date and time'),
+                                    'FECHA DE NACIMIENTO'),
                             selectedDate: selectedDate,
                             onDateSelected: (DateTime value) {
                               setState(() {
@@ -234,7 +221,7 @@ class _CreateAnimalState extends State<CreateAnimal> {
                             }),
                         Padding(
                           padding: const EdgeInsets.only(
-                              right: 25.0, left: 40, top: 20, bottom: 30),
+                              right: 25.0, left: 40, top: 50, bottom: 30),
                           child: Row(
                             children: [
                               SizedBox(
@@ -272,18 +259,35 @@ class _CreateAnimalState extends State<CreateAnimal> {
                                   child: MaterialButton(
                                     color: Color.fromARGB(255, 104, 91, 227),
                                     onPressed: () {
-                                      String formattedDate = selectedDate!
+                                      if(images == null){
+                                        _showAlert("Acceso deGANADO",
+                                        "Por favor agregue una imagen");
+                                      }
+                                      if (_name.text == '' ||
+                                      _animal.text == ''||
+                                      _race.text == '' ||
+                                      _number.text == ''||
+                                      selectedDate == null
+                                      ) {
+                                        _showAlert("Acceso deGANADO",
+                                        "Por favor llene todo los campos");
+                                        }else{                                     
+                                         String formattedDate = selectedDate!
                                           .toIso8601String()
                                           .substring(0, 10);
-                                      var data = {
-                                        "name": _name.text,
-                                        "animal": _animal.text,
-                                        "race": _race.text,
-                                        "number": _number.text,
-                                        "birthdate": formattedDate,
-                                      };
+                                        
+                                        var data = {
+                                          "name": _name.text,
+                                          "animal": _animal.text,
+                                          "race": _race.text,
+                                          "number": _number.text,
+                                          "birthdate": formattedDate,
+                                        };
 
-                                      dioConnect(images!, data);
+
+                                        dioConnect(images!, data);
+                                      }
+                                    
                                     },
                                     shape: RoundedRectangleBorder(
                                         side: const BorderSide(
@@ -394,6 +398,27 @@ class _CreateAnimalState extends State<CreateAnimal> {
                       ),
                     ),
                   );
+                },
+              )
+            ],
+          );
+        });
+  }
+    void _showAlert(String title, String content) {
+    showDialog(
+        context: context,
+        builder: (buildcontext) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(content),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text(
+                  "CERRAR",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
                 },
               )
             ],
