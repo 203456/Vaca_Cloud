@@ -6,8 +6,9 @@ class Animal {
   String ?number;
   String ?birthdate;
   String ?photo;
+  String ?owner;
 
-  Animal(id, name, animal,race,number,birthdate,photo){
+  Animal(id, name, animal,race,number,birthdate,photo,owner){
   this.id = id;
   this.name = name;
   this.animal = animal; 
@@ -15,5 +16,6 @@ class Animal {
   this.number = number;
   this.birthdate = birthdate;
   this.photo = photo;
+  this.owner = owner;
   }
 }

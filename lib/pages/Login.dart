@@ -1,8 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import 'package:http/http.dart';
 import 'package:vaca_cloud/pages/Prueba.dart';
 import 'package:dio/dio.dart';
+import 'package:vaca_cloud/pages/Register.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -14,6 +16,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController _username = TextEditingController();
   TextEditingController _password = TextEditingController();
+
+  late TapGestureRecognizer tapGestureRecognizer;
 
   @override
   Widget build(BuildContext context) {
@@ -139,6 +143,34 @@ class _LoginState extends State<Login> {
                                 ),
                               ),
                             )),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 40.0),
+                          child: RichText(
+                            text: TextSpan(
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 14),
+                              children: [
+                                const TextSpan(
+                                    text: '¿no tienes cuenta?',
+                                    style: TextStyle(fontSize: 18)),
+                                TextSpan(
+                                  text: ' Crea una cuanta',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: Colors.red),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const Register()));
+                                    },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -169,7 +201,12 @@ class _LoginState extends State<Login> {
       print(Token);
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (_) => Prueba(token: Token,userId: userID,)));
+          context,
+          MaterialPageRoute(
+              builder: (_) => Prueba(
+                    token: Token,
+                    userId: userID,
+                  )));
     } catch (e) {
       if (e is DioError) {
         if (e.response?.statusCode == 400) {
