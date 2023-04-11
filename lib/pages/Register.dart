@@ -213,10 +213,11 @@ class _RegisterState extends State<Register> {
                           padding: const EdgeInsets.only(
                               right: 25.0, left: 30, top: 30, bottom: 30),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
                                 height: 60,
-                                width: 150,
+                                width: 110,
                                 child: MaterialButton(
                                   color: Color.fromARGB(255, 117, 203, 88),
                                   onPressed: () {
@@ -231,7 +232,7 @@ class _RegisterState extends State<Register> {
                                       borderRadius: BorderRadius.circular(20)),
                                   child: const Text(
                                     style: TextStyle(
-                                        fontSize: 18,
+                                        fontSize: 12,
                                         color:
                                             Color.fromARGB(255, 250, 250, 250)),
                                     'CANCELAR',
@@ -242,7 +243,7 @@ class _RegisterState extends State<Register> {
                                 padding: EdgeInsets.only(left: 10),
                                 child: SizedBox(
                                   height: 60,
-                                  width: 150,
+                                  width: 110,
                                   child: MaterialButton(
                                     color: Color.fromARGB(255, 104, 91, 227),
                                     onPressed: () {
@@ -251,14 +252,23 @@ class _RegisterState extends State<Register> {
                                       print(_username.text);
                                       print(_password.text);
                                       print(_email.text);
-                                      var data = {
-                                        "first_name": _name.text,
-                                        "last_name": _last_name.text,
-                                        "username": _username.text,
-                                        "email": _email.text,
-                                        "password": _password.text,
-                                      };
-                                      dioPost(data);
+                                      if (_password.text == '' ||
+                                          _username.text == '' ||
+                                          _name.text == '' ||
+                                          _email.text == '' ||
+                                          _last_name.text == '') {
+                                        _showAlertDialog("Datos faltantes",
+                                            "Por favor llene todo los campos");
+                                      } else {
+                                        var data = {
+                                          "first_name": _name.text,
+                                          "last_name": _last_name.text,
+                                          "username": _username.text,
+                                          "email": _email.text,
+                                          "password": _password.text,
+                                        };
+                                        dioPost(data);
+                                      }
                                     },
                                     shape: RoundedRectangleBorder(
                                         side: const BorderSide(
@@ -267,7 +277,7 @@ class _RegisterState extends State<Register> {
                                             BorderRadius.circular(20)),
                                     child: const Text(
                                       style: TextStyle(
-                                          fontSize: 18,
+                                          fontSize: 12,
                                           color: Color.fromARGB(
                                               255, 250, 250, 250)),
                                       'REGISTRARSE',
@@ -361,8 +371,9 @@ class _RegisterState extends State<Register> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => const Login()));
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (_) => const Login()),
+                      (route) => false);
                 },
               )
             ],

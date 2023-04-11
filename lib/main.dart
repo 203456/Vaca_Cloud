@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vaca_cloud/pages/Login.dart';
-import 'package:vaca_cloud/pages/Prueba.dart';
-import 'package:vaca_cloud/pages/CreateAnimal.dart';
-import 'package:vaca_cloud/pages/Register.dart';
 
 void main() async {
-
-
   runApp(const MyApp());
 }
 
@@ -20,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
       ),
       home: const Login(),
     );
