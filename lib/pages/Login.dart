@@ -1,21 +1,33 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import 'package:http/http.dart';
 import 'package:vaca_cloud/pages/Prueba.dart';
 import 'package:dio/dio.dart';
+import 'package:vaca_cloud/pages/Register.dart';
+
 
 class Login extends StatefulWidget {
   const Login({super.key});
+  
+
 
   @override
   State<Login> createState() => _LoginState();
+
+
+  
+
 }
 
 class _LoginState extends State<Login> {
   TextEditingController _username = TextEditingController();
   TextEditingController _password = TextEditingController();
-
+  
+  late TapGestureRecognizer tapGestureRecognizer;
+  
   @override
+  
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(223, 221, 209, 250),
@@ -138,7 +150,17 @@ class _LoginState extends State<Login> {
                                   'Enviar solicitud',
                                 ),
                               ),
-                            )),
+                            )
+                          ),
+                        Padding(padding: EdgeInsets.only(top: 20),
+                        child: InkWell( // child tapped will fire onTap
+                          child: RichText(
+                            text: const TextSpan(text: '¿Aun no tienes cuenta?', style:TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontSize: 18)),
+                          ),
+                          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Register())),
+                          // ↑ Navigate to new page here
+                        ),
+                        )
                       ],
                     ),
                   ),

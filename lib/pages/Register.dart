@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:vaca_cloud/pages/Login.dart';
 import 'package:vaca_cloud/pages/Prueba.dart';
 import 'package:dio/dio.dart';
 
@@ -55,7 +56,7 @@ class _RegisterState extends State<Register> {
                               style: TextStyle(
                                   fontSize: 17,
                                   color: Color.fromARGB(255, 0, 0, 0)),
-                              "Nombre de usuario"),
+                              "Ingrese su nombre"),
                         ),
                         const Padding(
                           padding: EdgeInsets.only(bottom: 20),
@@ -74,7 +75,7 @@ class _RegisterState extends State<Register> {
                                 borderSide: BorderSide(color: Colors.blue),
                               ),
                               prefix: Icon(Icons.person),
-                              hintText: 'Nombre de usuario',
+                              hintText: 'Nombre',
                               hintStyle: TextStyle(
                                   color: Color.fromARGB(151, 156, 152, 152)),
                             ),
@@ -87,7 +88,7 @@ class _RegisterState extends State<Register> {
                               style: TextStyle(
                                   fontSize: 17,
                                   color: Color.fromARGB(255, 0, 0, 0)),
-                              "Correo electrónico"),
+                              "Ingrese su apellido"),
                         ),
                        const  Padding(
                           padding: EdgeInsets.only(bottom: 20),
@@ -105,21 +106,85 @@ class _RegisterState extends State<Register> {
                                     BorderRadius.all(Radius.circular(15.0)),
                                 borderSide: BorderSide(color: Colors.blue),
                               ),
-                              prefix: Icon(Icons.email),
-                              hintText: 'Correo electrónico',
+                              prefix: Icon(Icons.face_retouching_natural_outlined),
+                              hintText: 'Apellido',
                               hintStyle: TextStyle(
                                   color: Color.fromARGB(151, 156, 152, 152)),
                             ),
                           ),
                         ),
-                                                const Padding(
+                        const Padding(
                           padding:
-                              EdgeInsets.only(right: 245, top: 10, bottom: 4),
+                              EdgeInsets.only(right: 140, top: 10, bottom: 4),
                           child: Text(
                               style: TextStyle(
                                   fontSize: 17,
                                   color: Color.fromARGB(255, 0, 0, 0)),
-                              "Contraseña"),
+                              "Ingrese su nombre de usuario"),
+                        ),
+                        const Padding(
+                          padding:  EdgeInsets.only(bottom: 20),
+                          child: TextField(
+
+                            obscureText: true,
+                            decoration:  InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15.0)),
+                                  borderSide: BorderSide(
+                                      color: Color.fromARGB(133, 84, 73, 235))),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
+                                borderSide: BorderSide(color: Colors.blue),
+                              ),
+                              prefix: Icon(Icons.face_retouching_natural),
+                              hintText: 'Nombre de usuario',
+                              hintStyle: TextStyle(
+                                  color: Color.fromARGB(151, 156, 152, 152)),
+                            ),
+                          ),
+                        ),
+                         const Padding(
+                          padding:
+                              EdgeInsets.only(right: 145, top: 10, bottom: 4),
+                          child: Text(
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Color.fromARGB(255, 0, 0, 0)),
+                              "Ingrese su correo electronico"),
+                        ),
+                        const Padding(
+                          padding:  EdgeInsets.only(bottom: 20),
+                          child: TextField(
+
+                            obscureText: true,
+                            decoration:  InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15.0)),
+                                  borderSide: BorderSide(
+                                      color: Color.fromARGB(133, 84, 73, 235))),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
+                                borderSide: BorderSide(color: Colors.blue),
+                              ),
+                              prefix: Icon(Icons.email),
+                              hintText: 'Correo electronico',
+                              hintStyle: TextStyle(
+                                  color: Color.fromARGB(151, 156, 152, 152)),
+                            ),
+                          ),
+                        ),
+                        const Padding(
+                          padding:
+                              EdgeInsets.only(right: 185, top: 10, bottom: 4),
+                          child: Text(
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Color.fromARGB(255, 0, 0, 0)),
+                              "Ingrese su contraseña"),
                         ),
                         const Padding(
                           padding:  EdgeInsets.only(bottom: 20),
@@ -144,38 +209,6 @@ class _RegisterState extends State<Register> {
                             ),
                           ),
                         ),
-                        const Padding(
-                          padding:
-                              EdgeInsets.only(right: 175, top: 10, bottom: 4),
-                          child: Text(
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  color: Color.fromARGB(255, 0, 0, 0)),
-                              "Confirma la contraseña"),
-                        ),
-                        const Padding(
-                          padding:  EdgeInsets.only(bottom: 20),
-                          child: TextField(
-
-                            obscureText: true,
-                            decoration:  InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15.0)),
-                                  borderSide: BorderSide(
-                                      color: Color.fromARGB(133, 84, 73, 235))),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
-                                borderSide: BorderSide(color: Colors.blue),
-                              ),
-                              prefix: Icon(Icons.lock),
-                              hintText: 'Confirma la contraseña',
-                              hintStyle: TextStyle(
-                                  color: Color.fromARGB(151, 156, 152, 152)),
-                            ),
-                          ),
-                        ),
                         Padding(
                             padding: const EdgeInsets.only(
                               right: 25.0, left: 30, top: 30, bottom: 30),
@@ -190,7 +223,7 @@ class _RegisterState extends State<Register> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (_) =>  Register()
+                                          builder: (_) =>  Login()
                                         )
                                       );
                                   },
