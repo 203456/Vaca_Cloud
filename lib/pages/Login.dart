@@ -161,7 +161,7 @@ class _LoginState extends State<Login> {
     Dio dio = Dio();
     try {
       final response = await dio.post(
-        "http://192.168.0.8:8000/api/v1/login/",
+        "http://3.12.155.9/api/v1/login/",
         data: formData,
       );
       print(response.data);
