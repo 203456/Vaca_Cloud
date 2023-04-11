@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vaca_cloud/pages/Login.dart';
 import 'package:vaca_cloud/pages/Prueba.dart';
-
 import 'package:vaca_cloud/pages/CreateAnimal.dart';
 
 void main() async {
