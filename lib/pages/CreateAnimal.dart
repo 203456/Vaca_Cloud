@@ -335,7 +335,8 @@ class _CreateAnimalState extends State<CreateAnimal> {
         "animal": data["animal"],
         "race": data["race"],
         "number": data["number"],
-        "birthdate": data["birthdate"]
+        "birthdate": data["birthdate"],
+        "owner": 0
       });
 
       Dio dio = Dio();
@@ -356,7 +357,8 @@ class _CreateAnimalState extends State<CreateAnimal> {
         "race": data["race"],
         "number": data["number"],
         "birthdate": data["birthdate"],
-        "photo": file
+        "photo": file,
+        "owner": 1
       });
       Dio dio = Dio();
       final response = await dio.post("http://3.12.155.9/api/v1/animal/",
