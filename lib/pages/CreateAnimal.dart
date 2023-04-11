@@ -335,12 +335,13 @@ class _CreateAnimalState extends State<CreateAnimal> {
         "animal": data["animal"],
         "race": data["race"],
         "number": data["number"],
-        "birthdate": data["birthdate"]
+        "birthdate": data["birthdate"],
+        "owner": 0
       });
 
       Dio dio = Dio();
 
-      final response = await dio.post("http://3.12.155.9/api/v1/animal/",
+      final response = await dio.post("http://192.168.0.8:8000/api/v1/animal/",
           data: formData,
           options: Options(headers: {
             'Authorization': 'Token $token',
@@ -356,10 +357,11 @@ class _CreateAnimalState extends State<CreateAnimal> {
         "race": data["race"],
         "number": data["number"],
         "birthdate": data["birthdate"],
-        "photo": file
+        "photo": file,
+        "owner": 1
       });
       Dio dio = Dio();
-      final response = await dio.post("http://3.12.155.9/api/v1/animal/",
+      final response = await dio.post("http://192.168.0.8:8000/api/v1/animal/",
           data: formData,
           options: Options(headers: {
             'Authorization': 'Token $token',

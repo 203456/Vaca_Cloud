@@ -1,7 +1,11 @@
 import 'dart:convert';
 
+List<Animal> animalFromJson(String str) => animalListFromJson(json.decode(str));
 
-List<Animal> animalFromJson(String str) => List<Animal>.from(json.decode(str).map((x) => Animal.fromJson(x)));
+List<Animal> animalListFromJson(Map<String, dynamic> json) {
+  final List<dynamic> results = json['results'];
+  return results.map((animalJson) => Animal.fromJson(animalJson)).toList();
+}
 
 class Animal {
   Animal({
@@ -12,6 +16,7 @@ class Animal {
     this.race,
     this.number,
     this.birthdate,
+    this.owner,
   });
 
   String? name;
@@ -21,18 +26,15 @@ class Animal {
   String? race;
   String? number;
   String? birthdate;
-
+  int? owner;
 
   factory Animal.fromJson(Map<String, dynamic> json) => Animal(
-    name: json["name"],
-    animal: json["animal"],
-    photo: json["photo"],
-    id: json["id"],
-    race: json["race"],
-    number: json["number"],
-    birthdate: json["birthdate"],
-  );
-
-
+      name: json["name"],
+      animal: json["animal"],
+      photo: json["photo"],
+      id: json["id"],
+      race: json["race"],
+      number: json["number"],
+      birthdate: json["birthdate"],
+      owner: json["owner"]);
 }
-

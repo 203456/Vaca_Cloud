@@ -36,7 +36,7 @@ class _PruebaState extends State<Prueba> {
   }
 
   Future<void> fetchData() async {
-    var response = await BaseClient(widget.token).get('').catchError((err) {});
+    var response = await BaseClient(widget.token,widget.userId.toString()).get('').catchError((err) {});
     if (response == null) return;
     debugPrint('successful:');
     var animals = animalFromJson(response);
