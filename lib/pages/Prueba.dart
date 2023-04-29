@@ -11,13 +11,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'DetallesAnimal.dart';
 import 'EditAnimal.dart';
+import 'Login.dart';
 
 class Prueba extends StatefulWidget {
   final String token;
   final int userId;
-  
-  const Prueba({Key? key, required this.token, required this.userId}) : super(key: key);
-  
+
+  const Prueba({Key? key, required this.token, required this.userId})
+      : super(key: key);
+
   Future<http.Response> fetchAlbum() {
     return http.get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
   }
@@ -36,7 +38,9 @@ class _PruebaState extends State<Prueba> {
   }
 
   Future<void> fetchData() async {
-    var response = await BaseClient(widget.token,widget.userId.toString()).get('').catchError((err) {});
+    var response = await BaseClient(widget.token, widget.userId.toString())
+        .get('')
+        .catchError((err) {});
     if (response == null) return;
     debugPrint('successful:');
     var animals = animalFromJson(response);
@@ -52,13 +56,18 @@ class _PruebaState extends State<Prueba> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
         floatingActionButton: FloatingActionButton(
           child: FaIcon(FontAwesomeIcons.cow),
-        backgroundColor:Color.fromARGB(210, 169, 199, 250),
+          backgroundColor: Color.fromARGB(210, 169, 199, 250),
           onPressed: () {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => CreateAnimal(token: widget.token,userId: widget.userId,)),
+              MaterialPageRoute(
+                  builder: (context) => CreateAnimal(
+                        token: widget.token,
+                        userId: widget.userId,
+                      )),
             );
           },
         ),
@@ -87,6 +96,17 @@ class _PruebaState extends State<Prueba> {
             child: Center(
           child: Column(
             children: [
+              ElevatedButton(
+                child: Text(
+                  "Cerrar sesion",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (_) => const Login()),
+                      (route) => false);
+                },
+              ),
               SizedBox(height: 10),
               if (animalsList != null)
                 Expanded(
@@ -94,11 +114,19 @@ class _PruebaState extends State<Prueba> {
                     child: Column(
                       children: animalsList!
                           .map((animal) => GestureDetector(
-                            onDoubleTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => DetallesAnimal(animal: animal,token: widget.token,userId: widget.userId,)));
-                            },
-                            child: Container(
-                                  width: 350.0, // Ancho personalizado de la Card
+                                onDoubleTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => DetallesAnimal(
+                                                animal: animal,
+                                                token: widget.token,
+                                                userId: widget.userId,
+                                              )));
+                                },
+                                child: Container(
+                                  width:
+                                      350.0, // Ancho personalizado de la Card
                                   height:
                                       350.0, // Altura personalizada de la Card
                                   padding: EdgeInsets.all(
@@ -148,7 +176,7 @@ class _PruebaState extends State<Prueba> {
                                     ),
                                   ),
                                 ),
-                          ))
+                              ))
                           .toList(),
                     ),
                   ),

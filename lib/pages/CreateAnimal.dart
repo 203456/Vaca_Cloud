@@ -191,25 +191,23 @@ class _CreateAnimalState extends State<CreateAnimal> {
                                 ),
                               ),
                             )),
-
                         DateTimeField(
                             mode: DateTimeFieldPickerMode.date,
                             decoration: const InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(15.0)),
-                                      borderSide: BorderSide(
-                                          color: Color.fromARGB(
-                                              134, 115, 57, 231))),
-                                  focusedBorder: OutlineInputBorder(
+                                filled: true,
+                                fillColor: Colors.white,
+                                enabledBorder: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(15.0)),
-                                    borderSide: BorderSide(color: Colors.blue),
-                                  ),
-                                hintText:
-                                    'FECHA DE NACIMIENTO'),
+                                    borderSide: BorderSide(
+                                        color:
+                                            Color.fromARGB(134, 115, 57, 231))),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15.0)),
+                                  borderSide: BorderSide(color: Colors.blue),
+                                ),
+                                hintText: 'FECHA DE NACIMIENTO'),
                             selectedDate: selectedDate,
                             onDateSelected: (DateTime value) {
                               setState(() {
@@ -230,7 +228,7 @@ class _CreateAnimalState extends State<CreateAnimal> {
                                 child: MaterialButton(
                                   color: Color.fromARGB(255, 117, 203, 88),
                                   onPressed: () {
-                                    Navigator.push(
+                                    Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             builder: (_) => Prueba(
@@ -259,23 +257,22 @@ class _CreateAnimalState extends State<CreateAnimal> {
                                   child: MaterialButton(
                                     color: Color.fromARGB(255, 104, 91, 227),
                                     onPressed: () {
-                                      if(images == null){
+                                      if (images == null) {
                                         _showAlert("Acceso deGANADO",
-                                        "Por favor agregue una imagen");
+                                            "Por favor agregue una imagen");
                                       }
                                       if (_name.text == '' ||
-                                      _animal.text == ''||
-                                      _race.text == '' ||
-                                      _number.text == ''||
-                                      selectedDate == null
-                                      ) {
+                                          _animal.text == '' ||
+                                          _race.text == '' ||
+                                          _number.text == '' ||
+                                          selectedDate == null) {
                                         _showAlert("Acceso deGANADO",
-                                        "Por favor llene todo los campos");
-                                        }else{                                     
-                                         String formattedDate = selectedDate!
-                                          .toIso8601String()
-                                          .substring(0, 10);
-                                        
+                                            "Por favor llene todo los campos");
+                                      } else {
+                                        String formattedDate = selectedDate!
+                                            .toIso8601String()
+                                            .substring(0, 10);
+
                                         var data = {
                                           "name": _name.text,
                                           "animal": _animal.text,
@@ -284,10 +281,8 @@ class _CreateAnimalState extends State<CreateAnimal> {
                                           "birthdate": formattedDate,
                                         };
 
-
                                         dioConnect(images!, data);
                                       }
-                                    
                                     },
                                     shape: RoundedRectangleBorder(
                                         side: const BorderSide(
@@ -331,47 +326,53 @@ class _CreateAnimalState extends State<CreateAnimal> {
   }
 
   void dioConnect(File images, data) async {
-    String token = widget.token;
-    if (images == null) {
-      print('No hay imagen');
-      FormData formData = FormData.fromMap({
-        "name": data["name"],
-        "animal": data["animal"],
-        "race": data["race"],
-        "number": data["number"],
-        "birthdate": data["birthdate"],
-        "owner": 0
-      });
+    try {
+      String token = widget.token;
+      if (images == null) {
+        print('No hay imagen');
+        FormData formData = FormData.fromMap({
+          "name": data["name"],
+          "animal": data["animal"],
+          "race": data["race"],
+          "number": data["number"],
+          "birthdate": data["birthdate"],
+          "owner": 0
+        });
 
-      Dio dio = Dio();
+        Dio dio = Dio();
 
-      final response = await dio.post("http://3.12.155.9/api/v1/animal/",
-          data: formData,
-          options: Options(headers: {
-            'Authorization': 'Token $token',
-          }));
+        final response = await dio.post("http://3.12.155.9/api/v1/animal/",
+            data: formData,
+            options: Options(headers: {
+              'Authorization': 'Token $token',
+            }));
 
-      print(response.data);
-    } else {
-      var file = await MultipartFile.fromFile(images.path);
+        print(response.data);
+      } else {
+        var file = await MultipartFile.fromFile(images.path);
 
-      FormData formData = FormData.fromMap({
-        "name": data["name"],
-        "animal": data["animal"],
-        "race": data["race"],
-        "number": data["number"],
-        "birthdate": data["birthdate"],
-        "photo": file,
-        "owner": 1
-      });
-      Dio dio = Dio();
-      final response = await dio.post("http://3.12.155.9/api/v1/animal/",
-          data: formData,
-          options: Options(headers: {
-            'Authorization': 'Token $token',
-          }));
-      _showAlertDialog("Exito", "Animal nuevo guardado");
-      print(response.data);
+        FormData formData = FormData.fromMap({
+          "name": data["name"],
+          "animal": data["animal"],
+          "race": data["race"],
+          "number": data["number"],
+          "birthdate": data["birthdate"],
+          "photo": file,
+          "owner": 1
+        });
+        Dio dio = Dio();
+        final response = await dio.post("http://3.12.155.9/api/v1/animal/",
+            data: formData,
+            options: Options(headers: {
+              'Authorization': 'Token $token',
+            }));
+        _showAlertDialog("Exito", "Animal nuevo guardado");
+        print(response.data);
+      }
+    } catch (e) {
+      if (e is DioError) {
+        _showAlertDialog("Acceso deGANADO", "${e.response!.data}");
+      }
     }
   }
 
@@ -389,22 +390,23 @@ class _CreateAnimalState extends State<CreateAnimal> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => Prueba(
-                        token: widget.token,
-                        userId: widget.userId,
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => Prueba(
+                          token: widget.token,
+                          userId: widget.userId,
+                        ),
                       ),
-                    ),
-                  );
+                      (route) => false);
                 },
               )
             ],
           );
         });
   }
-    void _showAlert(String title, String content) {
+
+  void _showAlert(String title, String content) {
     showDialog(
         context: context,
         builder: (buildcontext) {
