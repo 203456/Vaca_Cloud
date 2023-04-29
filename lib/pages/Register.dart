@@ -313,7 +313,7 @@ class _RegisterState extends State<Register> {
     Dio dio = Dio();
     try {
       final response = await dio.post(
-        "http://3.12.155.9/api/v1/register/",
+        "http://3.16.215.229/api/v1/register/",
         data: formData,
       );
       print(response.data);

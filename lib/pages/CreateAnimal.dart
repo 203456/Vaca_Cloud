@@ -341,7 +341,7 @@ class _CreateAnimalState extends State<CreateAnimal> {
 
         Dio dio = Dio();
 
-        final response = await dio.post("http://3.12.155.9/api/v1/animal/",
+        final response = await dio.post("http://3.16.215.229/api/v1/animal/",
             data: formData,
             options: Options(headers: {
               'Authorization': 'Token $token',
@@ -361,7 +361,7 @@ class _CreateAnimalState extends State<CreateAnimal> {
           "owner": 1
         });
         Dio dio = Dio();
-        final response = await dio.post("http://3.12.155.9/api/v1/animal/",
+        final response = await dio.post("http://3.16.215.229/api/v1/animal/",
             data: formData,
             options: Options(headers: {
               'Authorization': 'Token $token',
