@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "264911166343",
+    "project_id": "flutter-firebase-messagi-ade93",
+    "storage_bucket": "flutter-firebase-messagi-ade93.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:264911166343:android:4422dc1835a8ebc161d122",
+        "android_client_info": {
+          "package_name": "com.example.vaca_cloud"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "264911166343-3k88dsvmol2l372jvtleju91vtgc9n0l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3ldqkEGKkoC-WwJrHIN3XZsIErLetq2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "264911166343-3k88dsvmol2l372jvtleju91vtgc9n0l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

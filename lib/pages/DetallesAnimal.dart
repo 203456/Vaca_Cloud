@@ -6,6 +6,7 @@ import 'package:vaca_cloud/pages/CreateAnimal.dart';
 import 'package:vaca_cloud/pages/CreateAnimal.dart';
 import 'package:vaca_cloud/pages/EditAnimal.dart';
 import 'package:vaca_cloud/pages/Prueba.dart';
+import 'package:vaca_cloud/services/local_notification_service.dart';
 
 class DetallesAnimal extends StatefulWidget {
   const DetallesAnimal(
@@ -23,6 +24,7 @@ class DetallesAnimal extends StatefulWidget {
 }
 
 class _DetallesAnimalState extends State<DetallesAnimal> {
+  int idNotification = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,40 +110,47 @@ class _DetallesAnimalState extends State<DetallesAnimal> {
                                   )),
                             )),
                         Padding(
-                          padding: const EdgeInsets.only(
-                              right: 25.0, left: 120, top: 40, bottom: 30),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                height: 60,
-                                width: 130,
-                                child: MaterialButton(
-                                  color: Color.fromARGB(255, 117, 203, 88),
-                                  onPressed: () {
-                                    Navigator.pop(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Prueba(
-                                                  token: widget.token,
-                                                  userId: widget.userId,
-                                                )));
-                                  },
-                                  shape: RoundedRectangleBorder(
-                                      side: const BorderSide(
-                                          width: 1, color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: const Text(
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color:
-                                            Color.fromARGB(255, 250, 250, 250)),
-                                    'REGRESAR',
-                                  ),
-                                ),
+                          padding: const EdgeInsets.only(top: 40, bottom: 30),
+                          child: SizedBox(
+                            height: 60,
+                            width: 130,
+                            child: MaterialButton(
+                              color: Color.fromARGB(255, 117, 203, 88),
+                              onPressed: () {
+                                Navigator.pop(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Prueba(
+                                              token: widget.token,
+                                              userId: widget.userId,
+                                            )));
+                              },
+                              shape: RoundedRectangleBorder(
+                                  side: const BorderSide(
+                                      width: 1, color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: const Text(
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Color.fromARGB(255, 250, 250, 250)),
+                                'REGRESAR',
                               ),
-                            ],
+                            ),
                           ),
                         ),
+                        GestureDetector(
+                          onTap: () {
+                            idNotification = idNotification + 1;
+                            print('Aqui ira la local notification');
+                            showNotification(
+                                idNotification, widget.animal.name);
+                          },
+                          child: Text(
+                            'Agregar evento',
+                            style: TextStyle(
+                                color: Colors.deepPurple, fontSize: 22.5),
+                          ),
+                        )
                       ],
                     ),
                   ),
